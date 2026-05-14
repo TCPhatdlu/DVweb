@@ -44,12 +44,7 @@ class Document(Base):
 
     status = Column(String(50), default='Pending') # Pending, Processed, Error
 
-
-    # Quan hệ ngược lại với User
-
     owner = relationship("User", back_populates="documents")
-
-    # Quan hệ: Một tài liệu có nhiều mục công thức
 
     formulas = relationship("FormulaEntry", back_populates="document", cascade="all, delete-orphan")
 

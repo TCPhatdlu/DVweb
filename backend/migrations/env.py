@@ -5,26 +5,19 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 
 # --- PHẦN 1: CẤU HÌNH ĐƯỜNG DẪN (QUAN TRỌNG) ---
-# Dòng này giúp Alembic "nhìn thấy" file models.py ở thư mục cha
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Bây giờ mới import được Base từ models.py
 from backend.app.models import Base
 
 # --- PHẦN 2: CẤU HÌNH ALEMBIC MẶC ĐỊNH ---
 config = context.config
 
-# Thiết lập hệ thống log
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
-
-# Đây là "trái tim" của autogenerate: 
-# Kết nối các Class trong Python với database
 target_metadata = Base.metadata
 
 # --- PHẦN 3: CÁC HÀM CHẠY MIGRATION ---
 def run_migrations_offline() -> None:
-    """Chạy migration khi không có kết nối trực tiếp (xuất ra file SQL)"""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -37,7 +30,6 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 def run_migrations_online() -> None:
-    """Chạy migration trực tiếp vào Database (cách bạn đang dùng)"""
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
@@ -53,7 +45,7 @@ def run_migrations_online() -> None:
         with context.begin_transaction():
             context.run_migrations()
 
-# Kiểm tra chế độ chạy và thực thi
+
 if context.is_offline_mode():
     run_migrations_offline()
 else:

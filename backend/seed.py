@@ -33,7 +33,7 @@ def seed_data():
         )
         db.add(test_user)
         db.flush() #
-        # 3. Tạo dữ liệu mẫu cho bảng Documents
+        # Tạo dữ liệu mẫu cho bảng Documents
 
         test_doc = Document(
 
@@ -50,7 +50,7 @@ def seed_data():
         db.flush()
 
 
-        # 4. Tạo dữ liệu mẫu cho bảng FormulaEntries (Công thức LaTeX)
+        # Tạo dữ liệu mẫu cho bảng FormulaEntries (Công thức LaTeX)
 
         formula = FormulaEntry(
 
